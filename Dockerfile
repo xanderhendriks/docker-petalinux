@@ -30,22 +30,22 @@ RUN 	dpkg --add-architecture i386 	&& \
 # Required tools and libraries of Petalinux.
 # See in: ug1144-petalinux-tools-reference-guide, 2019.1
 RUN 	apt-get install -y -qq --no-install-recommends \
-	  gawk gcc make net-tools libncurses5-dev tftpd zlib1g-dev \
-    libssl-dev wget gcc-4.8 zlib1g:i386 python vim tofrodos \
-    iproute2 xvfb  build-essential checkinstall libreadline-gplv2-dev \
-    libncursesw5-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev \
-    libbz2-dev git make net-tools flex bison libselinux1 gnupg diffstat \
-    chrpath socat xterm autoconf libtool tar unzip texinfo gcc-multilib \
-    libsdl1.2-dev libglib2.0-dev screen pax gzip language-pack-en libtool-bin \
-    cpio lib32z1 lsb-release vim-common libgtk2.0-dev libstdc++6:i386 \
-    libc6:i386 expect file less
+	gawk gcc make net-tools libncurses5-dev tftpd zlib1g-dev \
+    	libssl-dev wget gcc-4.8 zlib1g:i386 python vim tofrodos \
+    	iproute2 xvfb  build-essential checkinstall libreadline-gplv2-dev \
+    	libncursesw5-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev \
+    	libbz2-dev git make net-tools flex bison libselinux1 gnupg diffstat \
+    	chrpath socat xterm autoconf libtool tar unzip texinfo gcc-multilib \
+    	libsdl1.2-dev libglib2.0-dev screen pax gzip language-pack-en libtool-bin \
+    	cpio lib32z1 lsb-release vim-common libgtk2.0-dev libstdc++6:i386 \
+    	libc6:i386 expect file less
   	# Using expect to install Petalinux automatically.
 
 RUN   apt-get install -y locales && \
-    dpkg-reconfigure locales && \
-    locale-gen en_US.UTF-8 && \
-    update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
-    echo "export LANG=en_US.UTF-8" >> ~/.bashrc
+      dpkg-reconfigure locales && \
+      locale-gen en_US.UTF-8 && \
+      update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
+      echo "export LANG=en_US.UTF-8" >> ~/.bashrc
 
 # bash is PetaLinux recommended shell
 RUN 	ln -fs /bin/bash /bin/sh
@@ -60,8 +60,8 @@ WORKDIR /home/$user/project
 
 COPY 	noninteractive-install.sh .
 
-RUN 	sudo chmod +x noninteractive-install.sh && \
-    wget -q ${installer_url}/petalinux-v${version}-final-installer.run  	&& \
+RUN 	sudo chmod +x noninteractive-install.sh 				&& \
+    	wget -q ${installer_url}/petalinux-v${version}-final-installer.run  	&& \
 	chmod a+x petalinux-v${version}-final-installer.run                 	&& \
 	./noninteractive-install.sh /opt/petalinux ${version}                   && \
     	rm -rf petalinux-v${version}-final-installer.run			&& \
