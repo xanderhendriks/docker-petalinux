@@ -30,7 +30,7 @@ RUN 	dpkg --add-architecture i386 	&& \
 # Required tools and libraries of Petalinux.
 # See in: ug1144-petalinux-tools-reference-guide, 2019.1
 RUN 	apt-get install -y -qq --no-install-recommends \
-	gawk gcc make net-tools libncurses5-dev tftpd zlib1g-dev \
+	gawk gcc make net-tools libncurses5-dev zlib1g-dev \
     	libssl-dev wget gcc-4.8 zlib1g:i386 python vim tofrodos \
     	iproute2 xvfb  build-essential checkinstall libreadline-gplv2-dev \
     	libncursesw5-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev \
