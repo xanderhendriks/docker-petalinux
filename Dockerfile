@@ -8,7 +8,7 @@ ENV 	LANG=en_US.UTF-8
 ENV 	LANGUAGE=en_US.UTF-8 
 ENV 	TZ=Asia/Shanghai
 
-ARG 	installer_url="https://cloud.deng-quan.com"
+ARG 	installer_url="http://cloud.deng-quan.com"
 ARG 	version=2019.1
 ARG 	user=microd
 
