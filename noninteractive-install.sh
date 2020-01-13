@@ -6,10 +6,13 @@ set version [lindex $argv 1]
 spawn ./petalinux-v$version-final-installer.run $install_dir
 expect "Press Enter to display the license agreements"
 send "\r"
+send "q"
 expect "*>*"
 send "y\r"
+send "q"
 expect "*>*"
 send "y\r"
+send "q"
 expect "*>*"
 send "y\r"
 expect "*Petalinux SDK has been installed to*"
