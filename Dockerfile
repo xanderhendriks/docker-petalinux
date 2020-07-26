@@ -9,8 +9,9 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8 
 ENV TZ=Australia/Sydney
 
-# The URL can be determined by downloading the file from the Xilinx website and check the URL in the download manager (Ctrl+J)
-ENV URL "https://xilinx-ax-dl.entitlenow.com/dl/ul/2019/10/28/R210258808/petalinux-v2019.2-final-installer.run/1baa59644f12b697cc725024b62aa761/5F1A75E0"
+# The URL can be determined by downloading the file from the Xilinx website and check the URL in the download manager (Ctrl+J).
+# URL is only valid for a couple of hours
+ENV URL "https://xilinx-ax-dl.entitlenow.com/dl/ul/2019/10/28/R210258808/petalinux-v2019.2-final-installer.run/ae6040be1d23492eb9c6bf82ffaf21bd/5F1DCBDB"
 ENV LINUX_USER xilinx
 
 ARG USER
@@ -22,11 +23,14 @@ RUN dpkg --add-architecture i386    && \
     apt-get clean all               && \
     apt-get install -y -qq iputils-ping sudo rsync apt-utils x11-utils
 
+# Install curl for downloading petalinux
+RUN apt-get install -y -qq curl ca-certificates
+
 # Required tools and libraries of Petalinux.
 # See in: ug1144-petalinux-tools-reference-guide, 2019.2
 RUN apt-get install -y -qq --no-install-recommends \
     gawk gcc make net-tools libncurses5-dev zlib1g-dev \
-    libssl-dev curl ca-certificates gcc-4.8 zlib1g:i386 python vim tofrodos \
+    libssl-dev wget gcc-4.8 zlib1g:i386 python vim tofrodos \
     iproute2 xvfb  build-essential checkinstall libreadline-gplv2-dev \
     libncursesw5-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev \
     libbz2-dev git make net-tools flex bison libselinux1 gnupg diffstat \
@@ -63,7 +67,7 @@ COPY noninteractive-install.sh .
 RUN sudo chmod +x noninteractive-install.sh
 
 RUN curl -fSL -A "Mozilla/4.0" -u --user=${USER}:${PASSWORD} -o petalinux-final-installer.run ${URL}    && \
-    chmod a+x petalinux-final-installer.run
+    sudo chmod a+x petalinux-final-installer.run
 
 # Using expect to install Petalinux automatically.
 RUN ./noninteractive-install.sh           && \
