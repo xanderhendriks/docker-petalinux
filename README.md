@@ -22,10 +22,6 @@ A demo to use petalinux in docker
 Run
 ---
 
-Then, when starting your mplabx container, you will want to share the X11
-socket file as a volume so that the MPLAB X windows can be displayed on you
-Xorg server. You may also need to run command `xhost +` on the host.
-
-    $ docker pull xanderhendriks/mplabx
+    $ docker pull xanderhendriks/petalinux
 
     $ docker run -it -v /YOUR_LOCAL_PATH:/DOCKER_PATH --privileged xanderhendriks/petalinux
