@@ -13,9 +13,9 @@ ENV LINUX_USER xilinx
 
 # The URL can be determined by downloading the file from the Xilinx website and check the URL in the download manager (Ctrl+J).
 # URL is only valid for a couple of hours. Or supply a URL to a different location where the binary is hosted
-ARG URL=""
-ARG USER=""
-ARG PASSWORD=""
+ENV URL=""
+ENV USER=""
+ENV PASSWORD=""
 
 RUN echo ${URL} ${USER} ${PASSWORD}
 
