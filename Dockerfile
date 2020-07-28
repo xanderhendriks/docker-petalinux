@@ -9,14 +9,13 @@ ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8 
 ENV TZ=Australia/Sydney
 
-# The URL can be determined by downloading the file from the Xilinx website and check the URL in the download manager (Ctrl+J).
-# URL is only valid for a couple of hours
-ENV URL "https://xilinx-ax-dl.entitlenow.com/dl/ul/2019/10/28/R210258808/petalinux-v2019.2-final-installer.run/ae6040be1d23492eb9c6bf82ffaf21bd/5F1DCBDB"
 ENV LINUX_USER xilinx
 
+# The URL can be determined by downloading the file from the Xilinx website and check the URL in the download manager (Ctrl+J).
+# URL is only valid for a couple of hours. Or supply a URL to a different location where the binary is hosted
+ARG URL
 ARG USER
 ARG PASSWORD
-ARG EXTERNAL_URL
 
 # Configure and update system
 RUN dpkg --add-architecture i386    && \
@@ -67,8 +66,8 @@ RUN echo "source /opt/petalinux/settings.sh" >> ~/.bashrc
 COPY noninteractive-install.sh .
 RUN sudo chmod +x noninteractive-install.sh
 
-RUN if [[ -n "${EXTERNAL_URL}" ]] ; then curl -fSL -A "Mozilla/4.0" -o petalinux-final-installer.run ${EXTERNAL_URL} ;    \
-    else curl -fSL -A "Mozilla/4.0" --user=${USER}:${PASSWORD} -o petalinux-final-installer.run ${URL} ; fi            && \
+# Download the fie from the given URL and with the supplied user credentials  
+RUN curl -fSL -A "Mozilla/4.0" --user ${USER}:${PASSWORD} -o petalinux-final-installer.run ${URL} && \
     sudo chmod a+x petalinux-final-installer.run
 
 # Using expect to install Petalinux automatically.
