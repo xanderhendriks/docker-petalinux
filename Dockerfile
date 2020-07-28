@@ -67,8 +67,8 @@ RUN echo "source /opt/petalinux/settings.sh" >> ~/.bashrc
 COPY noninteractive-install.sh .
 RUN sudo chmod +x noninteractive-install.sh
 
-RUN if [[ -n "${EXTERNAL_URL}" ]] ; then curl -fSL -A "Mozilla/4.0" -u -o petalinux-final-installer.run ${EXTERNAL_URL} ;    \
-    else curl -fSL -A "Mozilla/4.0" -u --user=${USER}:${PASSWORD} -o petalinux-final-installer.run ${URL} ; fi            && \
+RUN if [[ -n "${EXTERNAL_URL}" ]] ; then curl -fSL -A "Mozilla/4.0" -o petalinux-final-installer.run ${EXTERNAL_URL} ;    \
+    else curl -fSL -A "Mozilla/4.0" --user=${USER}:${PASSWORD} -o petalinux-final-installer.run ${URL} ; fi            && \
     sudo chmod a+x petalinux-final-installer.run
 
 # Using expect to install Petalinux automatically.
